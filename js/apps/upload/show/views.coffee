@@ -1,7 +1,7 @@
 # list currency views
-define ['apps/fu/show/templates', 'views/_base', 'msgbus'], (Templates, AppView, msgBus) ->
+define ['msgbus', 'marionette','apps/upload/show/templates', 'globalize'], (msgBus, Marionette, Templates) ->
 
-    class FuItem extends AppView.ItemView
+    class FuItem extends Marionette.ItemView
         template: _.template(Templates.fuitem)
         tagName: "li"
         className: "list-group-item"
@@ -44,13 +44,13 @@ define ['apps/fu/show/templates', 'views/_base', 'msgbus'], (Templates, AppView,
                 console.log "change:status", state, _class
                 @ui.status.attr("class", _class)
 
-    class FuEmpty extends AppView.ItemView
+    class FuEmpty extends Marionette.ItemView
         template: _.template(Templates.fuempty)
         tagName: "li"
         className: "list-group-item"
 
 
-    UploadView: class FUCompositeView extends AppView.CompositeView
+    UploadView: class FUCompositeView extends Marionette.CompositeView
         template: _.template(Templates.fileupload)
         itemView: FuItem
         emptyView: FuEmpty
@@ -59,7 +59,6 @@ define ['apps/fu/show/templates', 'views/_base', 'msgbus'], (Templates, AppView,
             "reset add remove": ->
                 @ui.filesize.text Globalize.format @collection.fileSizeTotal(),"n0"
                 @ui.filecount.text @collection.length
-
 
         ui:
             filesize:       ".filesize"
@@ -89,11 +88,11 @@ define ['apps/fu/show/templates', 'views/_base', 'msgbus'], (Templates, AppView,
                 @trigger "select:file", e.target  # send the DOM element
 
 
-    Title: class _title extends AppView.ItemView
+    Title: class _title extends Marionette.ItemView
         template: _.template(Templates.title)
 
 
-    Layout: class _Layout extends AppView.Layout
+    Layout: class _Layout extends Marionette.Layout
         template: _.template(Templates.layout)
         className: "container"
         regions:

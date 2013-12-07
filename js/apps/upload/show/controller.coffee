@@ -1,5 +1,5 @@
 # file upload controller: require fileupload entities and the ifacelog/app
-define ["msgbus", "apps/fu/show/views", "controller/_base", "entities/fileupload", "apps/ifacelog/app"  ], (msgBus, Views, AppController) ->
+define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileupload"], (msgBus, Views, AppController) ->
 
     class Controller extends AppController
         initialize: (options)->
@@ -9,10 +9,8 @@ define ["msgbus", "apps/fu/show/views", "controller/_base", "entities/fileupload
             @listenTo @layout, "show", =>
                 @titleRegion()
                 @uploadRegion @fuEntities
-                @logRegion()
 
-            @show @layout,
-                loading: true
+            @show @layout
 
         titleRegion: ->
             view = @getTitleView()
@@ -21,8 +19,8 @@ define ["msgbus", "apps/fu/show/views", "controller/_base", "entities/fileupload
         uploadRegion: (collection) ->
             view = @getUploadView collection
 
-            @listenTo view, "childview:log:refresh", (child, args) ->  # listen to events from itemview (we've overridden the eventnamePrefix to childview)
-                @logRegion()  
+            @listenTo view, "itemview:log:refresh", (child, args) ->  # listen to events from itemview (we've overridden the eventnamePrefix to childview)
+                @logRegion()
 
             @listenTo view, "select:file", (input) ->
                 msgBus.reqres.request "fu:addToQueue", input
@@ -36,18 +34,12 @@ define ["msgbus", "apps/fu/show/views", "controller/_base", "entities/fileupload
             @layout.uploadRegion.show view
 
 
-        logRegion: ->  # execute command to call the ifacelog list
-            msgBus.commands.execute "app:ifacelog:list", @layout.logRegion
-
         getTitleView:->
             new Views.Title
 
-        getLogView: (collection)->
-            new Views.LogView 
-                collection: collection
 
         getUploadView: (collection)->
-            new Views.UploadView 
+            new Views.UploadView
                 collection: collection
 
         getLayoutView: ->
