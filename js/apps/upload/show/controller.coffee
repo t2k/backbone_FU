@@ -3,12 +3,14 @@ define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileup
 
     class Controller extends AppController
         initialize: (options)->
-            @fuEntities = msgBus.reqres.request  "fu:entities", options
+            #{region,settings} = options
+            #@fuEntities = msgBus.reqres.request  "fu:entities", settings
 
             @layout = @getLayoutView()
             @listenTo @layout, "show", =>
                 @titleRegion()
-                @uploadRegion @fuEntities
+                @optionsRegion()
+                #@uploadRegion @fuEntities
 
             @show @layout
 
@@ -16,20 +18,15 @@ define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileup
             view = @getTitleView()
             @layout.titleRegion.show view
 
+        optionsRegion: ->
+            view = @getOptionsView()
+            @layout.optionsRegion.show view
+
         uploadRegion: (collection) ->
             view = @getUploadView collection
 
-            @listenTo view, "itemview:log:refresh", (child, args) ->  # listen to events from itemview (we've overridden the eventnamePrefix to childview)
-                @logRegion()
-
-            @listenTo view, "select:file", (input) ->
-                msgBus.reqres.request "fu:addToQueue", input
-
-            @listenTo view, "click:upload",  ->
-                msgBus.reqres.request "fu:queue:upload"
-
-            @listenTo view, "click:clearall",  ->
-                msgBus.reqres.request "fu:queue:empty"
+            @listenTo view, "itemview:fu:show", (child, args) ->  # listen to events from itemview (we've overridden the eventnamePrefix to childview)
+                msgBus.commands.execute "comp:fu:show", @layout.uploadRegion, args.options
 
             @layout.uploadRegion.show view
 
@@ -37,6 +34,8 @@ define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileup
         getTitleView:->
             new Views.Title
 
+        getOptionsView:->
+            new Views.Options
 
         getUploadView: (collection)->
             new Views.UploadView

@@ -1,6 +1,18 @@
 # file upload entities
 define ["backbone", "msgbus"], (Backbone, msgBus ) ->
+    class FUOptions extends Backbone.Model
+        defaults:
+            currentUploadedFileId: 0
+            action: "none"
+            handler: "/upload"
+            queueSizeLimit:1
+            fileDataName: "fileData"
+            maxFileSize: 1024*1000
+            maxTotalFileSize: 1024*1000
+            mimeTypes: "plain/text"
+
     class FileModel extends Backbone.Model
+
         sync: (method, model, options) ->
             progress = (e) ->
                 progressObj = {}
@@ -18,7 +30,6 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
                     xhr.upload.addEventListener "progress", progress, false  if xhr.upload
                     xhr
                 , options)
-
             Backbone.sync.call @, method, model, newOptions
 
 
@@ -27,13 +38,13 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
         initialize: (models, options={})->
             @settings = _.extend(
                 currentUploadedFileId: 0
-                action: "upload"
-                handler: "/handler.ashx"
-                queueSizeLimit: 6
+                action: "none"
+                handler: "/upload"
+                queueSizeLimit: 1
                 fileDataName: "Filedata"
-                maxFileSize: 2147483648
-                maxTotalSize: 2147483648
-                mimeTypes: ""
+                maxFileSize: 1024*1000
+                maxTotalSize: 1024*1000
+                mimeTypes: "plain/text"
                 , options)
 
             @currentUploadedFileId = 0
@@ -82,7 +93,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
 
         # goes over the queue and calculates total size
         fileSizeTotal: =>
-            @reduce (memo, model)-> 
+            @reduce (memo, model)->
                 memo + Number model.get "size"
             ,0
 

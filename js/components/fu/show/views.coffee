@@ -1,5 +1,5 @@
 # list currency views
-define ['components/fu/show/templates', 'marionette', 'msgbus'], (Templates, Marionette, msgBus) ->
+define ['components/fu/show/templates', 'marionette', 'msgbus', 'globalize'], (Templates, Marionette, msgBus) ->
 
     class FuItem extends Marionette.ItemView
         template: _.template(Templates.fuitem)
@@ -44,6 +44,7 @@ define ['components/fu/show/templates', 'marionette', 'msgbus'], (Templates, Mar
                 console.log "change:status", state, _class
                 @ui.status.attr("class", _class)
 
+
     class FuEmpty extends Marionette.ItemView
         template: _.template(Templates.fuempty)
         tagName: "li"
@@ -59,7 +60,6 @@ define ['components/fu/show/templates', 'marionette', 'msgbus'], (Templates, Mar
             "reset add remove": ->
                 @ui.filesize.text Globalize.format @collection.fileSizeTotal(),"n0"
                 @ui.filecount.text @collection.length
-
 
         ui:
             filesize:       ".filesize"
@@ -89,14 +89,8 @@ define ['components/fu/show/templates', 'marionette', 'msgbus'], (Templates, Mar
                 @trigger "select:file", e.target  # send the DOM element
 
 
-    Title: class _title extends Marionette.ItemView
-        template: _.template(Templates.title)
-
-
     Layout: class _Layout extends Marionette.Layout
         template: _.template(Templates.layout)
         className: "container"
         regions:
-            titleRegion: "#title-region"
             uploadRegion: "#upload-region"
-            logRegion: "#log-region"
