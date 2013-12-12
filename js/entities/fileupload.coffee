@@ -9,7 +9,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
             fileDataName: "fileData"
             maxFileSize: 1024*1000
             maxTotalFileSize: 1024*1000
-            mimeTypes: "plain/text"
+            mimeTypes: "plain/text,image/png"
 
     class FileModel extends Backbone.Model
 
@@ -170,5 +170,11 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
         newFUEntities: (options)->
             new FileEntities [], options
 
+        newFUOptions:->
+            new FUOptions
+
     msgBus.reqres.setHandler "fu:entities", (options) ->
         API.newFUEntities options
+
+    msgBus.reqres.setHandler "fu:options",  ->
+        API.newFUOptions

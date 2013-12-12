@@ -4,12 +4,12 @@ define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileup
     class Controller extends AppController
         initialize: (options)->
             #{region,settings} = options
-            #@fuEntities = msgBus.reqres.request  "fu:entities", settings
+            @fuOptions = msgBus.reqres.request  "fu:options"
 
             @layout = @getLayoutView()
             @listenTo @layout, "show", =>
                 @titleRegion()
-                @optionsRegion()
+                @optionsRegion
                 #@uploadRegion @fuEntities
 
             @show @layout
@@ -18,8 +18,8 @@ define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileup
             view = @getTitleView()
             @layout.titleRegion.show view
 
-        optionsRegion: ->
-            view = @getOptionsView()
+        optionsRegion:(model) ->
+            view = @getOptionsView model
             @layout.optionsRegion.show view
 
         uploadRegion: (collection) ->
@@ -34,8 +34,9 @@ define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileup
         getTitleView:->
             new Views.Title
 
-        getOptionsView:->
+        getOptionsView: (model)->
             new Views.Options
+                model: model
 
         getUploadView: (collection)->
             new Views.UploadView
