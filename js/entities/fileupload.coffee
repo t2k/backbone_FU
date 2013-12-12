@@ -176,5 +176,5 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
     msgBus.reqres.setHandler "fu:entities", (options) ->
         API.newFUEntities options
 
-    msgBus.reqres.setHandler "fu:options",  ->
-        API.newFUOptions
+    msgBus.reqres.setHandler "new:fuoptions:entity",  ->
+        API.newFUOptions()

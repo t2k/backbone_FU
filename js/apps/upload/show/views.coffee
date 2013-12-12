@@ -9,11 +9,10 @@ define ['msgbus', 'marionette', 'apps/upload/show/templates'], (msgBus, Marionet
         triggers:
             "click button" : "button:clicked"
 
-
     Layout: class _Layout extends Marionette.Layout
         template: _.template(Templates.layout)
         className: "container"
         regions:
             titleRegion: "#title-region"
-            optiosnRegion: "#options-region"
+            optionsRegion: "#options-region"
             uploadRegion: "#upload-region"

@@ -2,14 +2,15 @@
 define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileupload"], (msgBus, Views, AppController) ->
 
     class Controller extends AppController
-        initialize: (options)->
+        initialize: ->
             #{region,settings} = options
-            @fuOptions = msgBus.reqres.request  "fu:options"
+            fuOptModel = msgBus.reqres.request  "new:fuoptions:entity"
+            console.log fuOptModel
 
             @layout = @getLayoutView()
             @listenTo @layout, "show", =>
                 @titleRegion()
-                @optionsRegion
+                @optionsRegion fuOptModel
                 #@uploadRegion @fuEntities
 
             @show @layout
@@ -25,8 +26,8 @@ define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileup
         uploadRegion: (collection) ->
             view = @getUploadView collection
 
-            @listenTo view, "itemview:fu:show", (child, args) ->  # listen to events from itemview (we've overridden the eventnamePrefix to childview)
-                msgBus.commands.execute "comp:fu:show", @layout.uploadRegion, args.options
+            @listenTo view, "itemview:fu:show", (child, args) ->
+                msgBus.commands.execute "comp:fu:show", @layout.uploadRegion, args.model
 
             @layout.uploadRegion.show view
 

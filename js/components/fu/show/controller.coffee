@@ -1,5 +1,5 @@
 # file upload controller: require fileupload entities and the ifacelog/app
-define ["msgbus", "apps/fu/show/views", "controller/_base", "entities/fileupload" ], (msgBus, Views, AppController) ->
+define ["msgbus", "components/fu/show/views", "controller/_base", "entities/fileupload" ], (msgBus, Views, AppController) ->
 
     class Controller extends AppController
         initialize: (options)->
