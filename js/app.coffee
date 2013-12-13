@@ -36,5 +36,6 @@ define ["msgbus", "backbone", "apps/load" ], (msgBus, Backbone  ) ->
         msgBus.commands.execute "start:header:app"
         msgBus.commands.execute "start:footer:app"
         msgBus.commands.execute "start:upload:app"
+        msgBus.commands.execute "start:about:app"
 
     app
