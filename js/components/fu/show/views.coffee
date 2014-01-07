@@ -1,5 +1,5 @@
 # list currency views
-define ['components/fu/show/templates', 'marionette', 'msgbus', 'globalize'], (Templates, Marionette, msgBus) ->
+define ['components/fu/show/templates', 'marionette', 'msgbus', 'globalize'], (Templates, Marionette, msgBus, Globalize) ->
 
     class FuItem extends Marionette.ItemView
         template: _.template(Templates.fuitem)

@@ -13,7 +13,7 @@
     "jquery": "~2.0.3",
     "bootstrap": "3.0.3",
     "requirejs": "~2.1.9",
-    "marionette": "~1.4.0",
+    "marionette": "~1.4.1",
     "requirejs-text": "~2.0.10",
     "backbone-amd": "~1.1.0",
     "underscore-amd": "~1.5.2",

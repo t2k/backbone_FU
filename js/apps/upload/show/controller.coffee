@@ -1,5 +1,5 @@
 # file upload controller: require fileupload entities and the ifacelog/app
-define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileupload"], (msgBus, Views, AppController) ->
+define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "entities/fileupload", "backbone.syphon"], (msgBus, Backbone, Views, AppController) ->
 
     class Controller extends AppController
         initialize: ->
@@ -21,6 +21,9 @@ define ["msgbus", "apps/upload/show/views", "controller/_base", "entities/fileup
 
         optionsRegion:(model) ->
             view = @getOptionsView model
+            @listenTo view, "tryit", =>
+                data = Backbone.Syphon.serialize view
+
             @layout.optionsRegion.show view
 
         uploadRegion: (collection) ->
