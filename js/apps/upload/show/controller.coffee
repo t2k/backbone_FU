@@ -21,8 +21,10 @@ define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "ent
 
         optionsRegion:(model) ->
             view = @getOptionsView model
-            @listenTo view, "tryit", =>
+            @listenTo view, "button:clicked", =>
+                console.log "button:clicked"
                 data = Backbone.Syphon.serialize view
+                console.log "Syphon", data
 
             @layout.optionsRegion.show view
 
