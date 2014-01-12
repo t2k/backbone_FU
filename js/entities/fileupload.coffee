@@ -39,19 +39,20 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
             @settings = _.extend(
                 currentUploadedFileId: 0
                 action: "none"
-                handler: "/upload"
+                handler: "/uploadShite"
                 queueSizeLimit: 1
                 fileDataName: "Filedata"
                 maxFileSize: 1024*1000
                 maxTotalSize: 1024*1000
-                mimeTypes: "plain/text"
+                mimeTypes: "text/plain"
                 , options)
 
-            @currentUploadedFileId = 0
+            #@currentUploadedFileId = 0
             @mimeTypes = @settings.mimeTypes.split(",")
-            @url = @settings.handler
+            @url = @settings.handler  # collections url for save/post
 
             msgBus.reqres.setHandler "fu:addToQueue", (input) =>
+                console.log "fu:addToQueue HANDLED", input
                 @addFile input
 
             msgBus.reqres.setHandler "fu:queue:empty", =>
@@ -62,16 +63,18 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
 
         addFile: (input)->
             i = 0
+            console.log "addFile", input.files.length
             while i < input.files.length
                 selectedFile = input.files[i]
                 if @enforceQueueLimits(selectedFile)
-                    _file = new FileModel
+                    _file = new FileModel @settings
                     _file.set "lastModifiedDate", selectedFile.lastModifiedDate
                     _file.set "file", selectedFile
                     _file.set "status", 0
                     _file.set "fileName", selectedFile.name
                     _file.set "mimeType", selectedFile.type
                     _file.set "size", selectedFile.size
+                    console.log "addFile:fileModel", _file
                     @add _file
                 i++
 
@@ -172,6 +175,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
 
         newFUOptions:->
             new FUOptions
+
 
     msgBus.reqres.setHandler "fu:entities", (options) ->
         API.newFUEntities options

@@ -2,24 +2,21 @@
 define ["msgbus", "components/fu/show/views", "controller/_base", "entities/fileupload" ], (msgBus, Views, AppController) ->
 
     class Controller extends AppController
-        initialize: (options)->
-            {region, options} = options
-
+        initialize: (_options)->
+            {region, options} = _options
+            console.log "component controller", options
             @fuEntities = msgBus.reqres.request  "fu:entities", options
             @layout = @getLayoutView()
             @listenTo @layout, "show", =>
                 @uploadRegion @fuEntities
 
-            @show @layout,
-                loading: true
+            @show @layout
 
         uploadRegion: (collection) ->
             view = @getUploadView collection
 
-            #@listenTo view, "childview:log:refresh", (child, args) ->  # listen to events from itemview (we've overridden the eventnamePrefix to childview)
-            #    @logRegion()
-
             @listenTo view, "select:file", (input) ->
+                console.log "fu:addToQueue REQUEST", input
                 msgBus.reqres.request "fu:addToQueue", input
 
             @listenTo view, "click:upload",  ->
@@ -29,7 +26,6 @@ define ["msgbus", "components/fu/show/views", "controller/_base", "entities/file
                 msgBus.reqres.request "fu:queue:empty"
 
             @layout.uploadRegion.show view
-
 
         getUploadView: (collection)->
             new Views.UploadView

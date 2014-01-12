@@ -1,5 +1,5 @@
 # list currency views
-define ['components/fu/show/templates', 'marionette', 'msgbus', 'globalize'], (Templates, Marionette, msgBus, Globalize) ->
+define ['components/fu/show/templates', 'marionette', 'msgbus'], (Templates, Marionette, msgBus) ->
 
     class FuItem extends Marionette.ItemView
         template: _.template(Templates.fuitem)
@@ -73,7 +73,7 @@ define ['components/fu/show/templates', 'marionette', 'msgbus', 'globalize'], (T
         initialize: (options={})->
             msgBus.events.on "onErrorAddingFile", (err) =>
                 @ui.alert.find("span").text(err.reason)
-                @ui.alert.fadeIn().fadeOut(3000)
+                @ui.alert.fadeIn().fadeOut(5000)
 
         events:
             "click #browse": ->

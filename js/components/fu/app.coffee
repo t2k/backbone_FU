@@ -8,5 +8,5 @@ define ["msgbus", "marionette", "components/fu/show/controller"], (msgBus, Mario
                 region: region
                 options: options
 
-    msgBus.commands.setHandler "comp:fu:show", (region, options) ->
+    msgBus.commands.setHandler "component:fu:show", (region, options) ->
         API.show region, options

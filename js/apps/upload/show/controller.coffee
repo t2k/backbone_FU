@@ -1,17 +1,16 @@
 # file upload controller: require fileupload entities and the ifacelog/app
-define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "entities/fileupload", "backbone.syphon"], (msgBus, Backbone, Views, AppController) ->
+define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "entities/fileupload", "backbone.syphon","components/fu/app"], (msgBus, Backbone, Views, AppController) ->
 
     class Controller extends AppController
         initialize: ->
             #{region,settings} = options
-            fuOptModel = msgBus.reqres.request  "new:fuoptions:entity"
-            console.log fuOptModel
+            model = msgBus.reqres.request  "new:fuoptions:entity"
+            console.log "model (options)", model
 
             @layout = @getLayoutView()
             @listenTo @layout, "show", =>
                 @titleRegion()
-                @optionsRegion fuOptModel
-                #@uploadRegion @fuEntities
+                @optionsRegion model
 
             @show @layout
 
@@ -25,17 +24,9 @@ define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "ent
                 console.log "button:clicked"
                 data = Backbone.Syphon.serialize view
                 console.log "Syphon", data
+                msgBus.commands.execute "component:fu:show", @layout.uploadRegion, data
 
             @layout.optionsRegion.show view
-
-        uploadRegion: (collection) ->
-            view = @getUploadView collection
-
-            @listenTo view, "itemview:fu:show", (child, args) ->
-                msgBus.commands.execute "comp:fu:show", @layout.uploadRegion, args.model
-
-            @layout.uploadRegion.show view
-
 
         getTitleView:->
             new Views.Title
@@ -43,10 +34,6 @@ define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "ent
         getOptionsView: (model)->
             new Views.Options
                 model: model
-
-        getUploadView: (collection)->
-            new Views.UploadView
-                collection: collection
 
         getLayoutView: ->
             new Views.Layout
