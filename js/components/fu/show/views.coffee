@@ -1,8 +1,13 @@
-# list currency views
-define ['components/fu/show/templates', 'marionette', 'msgbus'], (Templates, Marionette, msgBus) ->
+# show views
+define ['components/fu/show/templates', 'marionette', 'msgbus', 'moment'], (Templates, Marionette, msgBus, Moment) ->
 
     class FuItem extends Marionette.ItemView
         template: _.template(Templates.fuitem)
+        # moment v2.5 supports RequireJS pass this in as templateHelper
+
+        templateHelpers:
+            moment: Moment  # call moment within underscore templates
+
         tagName: "li"
         className: "list-group-item"
 

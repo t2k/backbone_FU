@@ -1,6 +1,5 @@
 # load base config before app
 define [
- "moment"
  "globalize"
  "config/jquery/jquery"                 #custom jquery functions/plugins etc.
  "config/underscore/templatesettings"   #underscore template config
