@@ -5,7 +5,6 @@ define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "ent
         initialize: ->
             #{region,settings} = options
             model = msgBus.reqres.request  "new:fuoptions:entity"
-            console.log "model (options)", model
 
             @layout = @getLayoutView()
             @listenTo @layout, "show", =>
@@ -21,9 +20,7 @@ define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "ent
         optionsRegion:(model) ->
             view = @getOptionsView model
             @listenTo view, "button:clicked", =>
-                console.log "button:clicked"
                 data = Backbone.Syphon.serialize view
-                console.log "Syphon", data
                 msgBus.commands.execute "component:fu:show", @layout.uploadRegion, data
 
             @layout.optionsRegion.show view

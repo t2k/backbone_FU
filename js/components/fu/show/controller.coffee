@@ -4,7 +4,6 @@ define ["msgbus", "components/fu/show/views", "controller/_base", "entities/file
     class Controller extends AppController
         initialize: (_options)->
             {region, options} = _options
-            console.log "component controller", options
             @fuEntities = msgBus.reqres.request  "fu:entities", options
             @layout = @getLayoutView()
             @listenTo @layout, "show", =>
@@ -16,7 +15,6 @@ define ["msgbus", "components/fu/show/views", "controller/_base", "entities/file
             view = @getUploadView collection
 
             @listenTo view, "select:file", (input) ->
-                console.log "fu:addToQueue REQUEST", input
                 msgBus.reqres.request "fu:addToQueue", input
 
             @listenTo view, "click:upload",  ->

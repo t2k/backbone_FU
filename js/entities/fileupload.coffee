@@ -52,7 +52,6 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
             @url = @settings.handler  # collections url for save/post
 
             msgBus.reqres.setHandler "fu:addToQueue", (input) =>
-                console.log "fu:addToQueue HANDLED", input
                 @addFile input
 
             msgBus.reqres.setHandler "fu:queue:empty", =>
@@ -63,18 +62,16 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
 
         addFile: (input)->
             i = 0
-            console.log "addFile", input.files.length
             while i < input.files.length
                 selectedFile = input.files[i]
                 if @enforceQueueLimits(selectedFile)
                     _file = new FileModel @settings
-                    _file.set "lastModifiedDate", selectedFile.lastModifiedDate
                     _file.set "file", selectedFile
+                    _file.set "lastModifiedDate", selectedFile.lastModifiedDate
                     _file.set "status", 0
                     _file.set "fileName", selectedFile.name
                     _file.set "mimeType", selectedFile.type
                     _file.set "size", selectedFile.size
-                    console.log "addFile:fileModel", _file
                     @add _file
                 i++
 

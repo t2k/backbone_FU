@@ -10,6 +10,6 @@ define ["msgbus", "marionette", "apps/upload/show/controller", "components/fu/ap
 
 
     msgBus.commands.setHandler "start:upload:app", ->
-        console.log "starting upload app"
+        #console.log "starting upload app"
         new Router
             controller: API

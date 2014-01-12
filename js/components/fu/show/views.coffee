@@ -41,7 +41,6 @@ define ['components/fu/show/templates', 'marionette', 'msgbus'], (Templates, Mar
                     when state=2 then "glyphicon glyphicon-saved"
                     when state=3 then "glyphicon glyphicon-minus-sign"
                     else ""
-                console.log "change:status", state, _class
                 @ui.status.attr("class", _class)
 
 
