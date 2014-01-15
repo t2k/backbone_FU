@@ -1,24 +1,28 @@
 ##backbone.fu
-===========
+A backbone File Upload component
 
-###A backbone File Upload component:
-
-####Instructions:
-####Install NODE
-
-##Config/dependencies:
 #### install coffee-script and bower globally
-1. npm install -g coffee-script bower
+```
+npm install -g coffee-script bower
+```
 
-### install client side libraries via bower.json
-2. bower install
+#### install client side dependencies via bower.json
+```
+$ bower install
+```
 
-### instal node modules package.json
-3. npm install
+#### install node modules via package.json
+```
+$ npm install
+```
 
-### coffeescript: compile and watch
-4. coffee -o js/ -cw js/
-5. coffee -o lib/ -cw src/
+#### coffeescript: compile and watch
+```
+$ coffee -o js/ -cw js/
+$ coffee -o lib/ -cw src/
+```
 
-*Start webApp:
-    $ node lib/app
+##start webApp:
+```
+$ node lib/app
+```
