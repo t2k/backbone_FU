@@ -30,19 +30,18 @@ app.post "/upload", (req,res)->
     multiparty = require 'multiparty'
     form = new multiparty.Form()
     form.parse req, (err, fields, files) ->
-      res.writeHead 200,
-        "content-type": "text/plain"
+        if err
+            res.writeHead 500,
+                "content-type": "text/plain"
+            res.end "ERROR: uploading\n\n"
 
-      res.write "received upload:\n\n"
-      res.end util.inspect(
-        fields: fields
-        files: files
-      )
+        console.log "upload", fields, files
+        res.json util.inspect(
+            fields: fields
+            files: files
+        )
 
-    return
-
-
-
+        return
 
 http.createServer(app).listen process.env.PORT, ->
     console.log 'App Started'
