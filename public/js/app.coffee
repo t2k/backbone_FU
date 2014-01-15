@@ -7,7 +7,6 @@ define ["msgbus", "backbone", "apps/load" ], (msgBus, Backbone  ) ->
     app.addRegions
         headerRegion: "#header-region"
         mainRegion: "#main-region"
-        footerRegion: "#footer-region"
 
     app.on "initialize:before", (options) ->
 
@@ -16,9 +15,6 @@ define ["msgbus", "backbone", "apps/load" ], (msgBus, Backbone  ) ->
 
     msgBus.reqres.setHandler "header:region", ->
         app.headerRegion
-
-    msgBus.reqres.setHandler "footer:region", ->
-        app.footerRegion
 
     msgBus.commands.setHandler "register:instance", (instance, id) ->
         app.register instance, id
@@ -34,7 +30,6 @@ define ["msgbus", "backbone", "apps/load" ], (msgBus, Backbone  ) ->
     # configure for loading templates that are stored externally...
     app.addInitializer (options) ->
         msgBus.commands.execute "start:header:app"
-        msgBus.commands.execute "start:footer:app"
         msgBus.commands.execute "start:upload:app"
         msgBus.commands.execute "start:about:app"
 

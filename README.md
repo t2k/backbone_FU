@@ -2,17 +2,24 @@ backbone.fu
 ===========
 
 A backbone File Upload component:
- (work in progress:)
 
-To Do:
-1. Create NodeJS mutlipart server with express and /upload uri
-2. Write files to file system
-3. Write files to mongo GridFS
+Instructions:
+Install NODE
 
-Clone:
+Config/dependencies:
+# install coffee-script and bower globally
+1. npm install -g coffee-script bower
 
-1. npm install coffee-script bower
+# install client side libraries via bower.json
 2. bower install
-3. coffee -o js/ -cw js/
 
-For now just load the Index.html
+# instal node modules package.json
+3. npm install
+
+# coffeescript: compile and watch
+4. coffee -o js/ -cw js/
+5. coffee -o lib/ -cw src/
+
+
+To start the webApp:
+$ node lib/app

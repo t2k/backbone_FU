@@ -39,7 +39,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
             @settings = _.extend(
                 currentUploadedFileId: 0
                 action: "none"
-                handler: "/uploadShite"
+                handler: "/upload"
                 queueSizeLimit: 1
                 fileDataName: "Filedata"
                 maxFileSize: 1024*1000
