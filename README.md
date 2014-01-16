@@ -1,7 +1,8 @@
 ##backbone.fu
 A backbone File Upload component
 
-![Example][ss]
+![Screenshot][ss]
+
 [ss]:  https://github.com/t2k/backbone_fu/raw/master/img/fu_component.png "Screen shot: Using the FU Component"
 
 #### install coffee-script and bower globally
