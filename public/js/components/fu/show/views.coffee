@@ -75,9 +75,9 @@ define ['components/fu/show/templates', 'marionette', 'msgbus', 'moment'], (Temp
             clearall:       "#clearall"
 
         initialize: (options={})->
-            msgBus.events.on "onErrorAddingFile", (err) =>
+            msgBus.events.on "fu:errorAddingFile", (err) =>
                 @ui.alert.find("span").text(err.reason)
-                @ui.alert.fadeIn().fadeOut(5000)
+                @ui.alert.fadeIn().fadeOut(750)
 
         events:
             "click #browse": ->

@@ -1,7 +1,6 @@
 # fu == file upload
 define ["msgbus", "marionette", "components/fu/show/controller"], (msgBus, Marionette, Controller) ->
 
-
     API =
         show:(region, options) ->
             new Controller

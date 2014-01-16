@@ -1,6 +1,16 @@
-# file upload entities
+# component entities: FILE UPLOAD
+#    defaults:
+#       currentUploadedFileId: 0
+#       action: "none"
+#       handler: "/upload"
+#       queueSizeLimit: 1
+#       fileDataName: "fileData"
+#       maxFileSize: 1024*1000
+#       maxTotalSize: 1024*1000
+#       mimeTypes: "image/png, image/jpg"#
+
 define ["backbone", "msgbus"], (Backbone, msgBus ) ->
-    class FUOptions extends Backbone.Model
+    class FUOptions extends Backbone.Model  #file upload options
         defaults:
             currentUploadedFileId: 0
             action: "none"
@@ -12,7 +22,6 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
             mimeTypes: "plain/text,image/png"
 
     class FileModel extends Backbone.Model
-
         sync: (method, model, options) ->
             progress = (e) ->
                 progressObj = {}
@@ -41,15 +50,15 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
                 action: "none"
                 handler: "/upload"
                 queueSizeLimit: 1
-                fileDataName: "Filedata"
+                fileDataName: "fileData"
                 maxFileSize: 1024*1000
                 maxTotalSize: 1024*1000
-                mimeTypes: "text/plain"
+                mimeTypes: "image/png, image/jpg"
                 , options)
 
-            #@currentUploadedFileId = 0
             @mimeTypes = @settings.mimeTypes.split(",")
             @url = @settings.handler  # collections url for save/post
+
 
             msgBus.reqres.setHandler "fu:addToQueue", (input) =>
                 @addFile input
@@ -79,7 +88,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
             @each (model) =>
                 if model.get("status") is 0 # queued and ready
                     fd = new FormData() #html5 can test for this
-                    fd.append "action", @settings.action
+                    fd.append "action", @settings.action # can be used on server side to call specific processing/action
                     fd.append "fileId", model.get("cid")
                     fd.append @settings.fileDataName, model.get("file")    #fileToUpload.file
                     model.set "status", 1
@@ -97,25 +106,8 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
                 memo + Number model.get "size"
             ,0
 
-        prettifyFileSize: (fileSizeInBytes) ->
-            byteSize = Math.round(fileSizeInBytes / 1024 * 100) * .01
-            suffix = "KB"
-            if byteSize > 1000
-                byteSize = Math.round(byteSize * .001 * 100) * .01
-                if byteSize > 1000
-                    byteSize = Math.round(byteSize * .001 * 100) * .01
-                    suffix = "GB"
-                else
-                    suffix = "MB"
-            sizeParts = byteSize.toString().split(".")
-            if sizeParts.length > 1
-                byteSize = "#{sizeParts[0]}.#{sizeParts[1].substr 0, 2}"
-            else
-                byteSize = sizeParts[0]
-            byteSize + suffix
 
-
-        # enforceQueueLimits function :
+        # enforceQueueLimits function 
         #  verify queue limit,
         #  verify file size
         #  verify max queue size
@@ -125,13 +117,13 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
             errObj = {}
             errObj.file = file
             if @length >= @settings.queueSizeLimit             # verify queue length
-                errObj.reason = "Queue is Full"
-                msgBus.events.trigger "onErrorAddingFile", errObj
+                errObj.reason = "Queue is full"
+                msgBus.events.trigger "fu:errorAddingFile", errObj
                 return false
 
             if file.size > @settings.maxFileSize              # verify file size
-                errObj.reason = "Max file size exceeded"
-                msgBus.events.trigger "onErrorAddingFile", errObj
+                errObj.reason = "File size exceeded"
+                msgBus.events.trigger "fu:errorAddingFile", errObj
                 return false
 
             unless @mimeTypes.length is 0 #verify mime types
@@ -147,13 +139,13 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
 
                 unless mimeTypeFound
                     errObj.reason = "File type not allowed #{fileMimeType}"
-                    msgBus.events.trigger "onErrorAddingFile", errObj
+                    msgBus.events.trigger "fu:errorAddingFile", errObj
                     return false
 
             # verify total size
             if @fileSizeTotal + file.size > @settings.maxTotalSize
-                errObj.reason = "Max queue size exceeded"
-                msgBus.events.trigger "onErrorAddingFile", errObj
+                errObj.reason = "Total file size exceeded"
+                msgBus.events.trigger "fu:errorAddingFile", errObj
                 return false
 
             if @length > 0 #check for duplicates
@@ -162,7 +154,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
                     fileName: file.name
                 if added isnt undefined
                     errObj.reason = "File already added to queue"
-                    msgBus.events.trigger "onErrorAddingFile", errObj
+                    msgBus.events.trigger "fu:errorAddingFile", errObj
                     return false
             true
 

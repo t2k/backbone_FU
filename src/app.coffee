@@ -10,16 +10,11 @@ app.set 'view engine', 'jade'
 app.set 'views', './views'
 
 app.use express.responseTime()
-app.use express.json()
-app.use express.urlencoded()
-
-#step 2: use a different multipart parser
-
-#app.use require('connect-multipart')
-#    keepExtensions: true
-#    uploadDir: "./tempUploads"
+#app.use express.json()
+#app.use express.urlencoded()
 
 
+# INDEX ROUTE, render a JADE view
 app.get "/", (req,res)->
     res.render 'index'
 
@@ -28,21 +23,22 @@ app.get "/upload", (req,res)->
 
 app.post "/upload", (req,res)->
     multiparty = require 'multiparty'
-    form = new multiparty.Form()
+    form = new multiparty.Form
+        autoFiles: true
+        uploadDir: "./tempUploads"
+        
     form.parse req, (err, fields, files) ->
         if err
             res.writeHead 500,
                 "content-type": "text/plain"
-            res.end "ERROR: uploading\n\n"
+            res.send "ERROR: uploading\n\n"
 
-        console.log "upload", fields, files
+        console.log "upload handled", fields, files
         res.json util.inspect(
+            message: "upload complete"
             fields: fields
             files: files
         )
-
-        return
-
 http.createServer(app).listen process.env.PORT, ->
-    console.log 'App Started'
+    console.log 'Started: FU serverApp'
 

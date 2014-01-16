@@ -1,5 +1,5 @@
-# file upload controller: require fileupload entities and the ifacelog/app
-define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "entities/fileupload", "backbone.syphon","components/fu/app"], (msgBus, Backbone, Views, AppController) ->
+# upload show controller: require the components/fu/app
+define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "components/fu/app", "backbone.syphon"], (msgBus, Backbone, Views, AppController) ->
 
     class Controller extends AppController
         initialize: ->
@@ -20,7 +20,13 @@ define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "ent
         optionsRegion:(model) ->
             view = @getOptionsView model
             @listenTo view, "button:clicked", =>
+                # using Syphon to grab hash/options from the view's UI
+                # 
                 data = Backbone.Syphon.serialize view
+            
+                # this is where the FU component is called...
+                # display within this apps 'uploadRegion and pass in options
+                # see components/fu/entities
                 msgBus.commands.execute "component:fu:show", @layout.uploadRegion, data
 
             @layout.optionsRegion.show view
