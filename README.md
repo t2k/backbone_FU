@@ -1,7 +1,7 @@
 ##backbone.FU
 A Backbone File-Upload component.
 
-I've included a client-side webApp so you can enjoy that **FU** experience 24/7.
+I've included a client-side webApp so you can enjoy that Backbone **FU** experience 24/7 ;-)
 
 ![Screenshot][ss]
 [ss]:  https://github.com/t2k/backbone.fu/raw/master/img/fu_component.png "Screen shot: Using the FU Component"
@@ -87,3 +87,5 @@ define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "com
             new Views.Layout
 
 ```
+
+This should be enough to get started uploading files in your Backbone apps.
