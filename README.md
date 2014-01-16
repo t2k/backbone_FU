@@ -1,5 +1,7 @@
 ##backbone.fu
-A backbone File Upload component
+A Backbone File Upload component.
+
+I've included a client-side webApp so you can have that **FU** experience day or night.
 
 ![Screenshot][ss]
 
