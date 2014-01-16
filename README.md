@@ -1,10 +1,9 @@
-##backbone.fu
-A Backbone File Upload component.
+##backbone.FU
+A Backbone File-Upload component.
 
-I've included a client-side webApp so you can have that **FU** experience day or night.
+I've included a client-side webApp so you can enjoy that **FU** experience 24/7.
 
 ![Screenshot][ss]
-
 [ss]:  https://github.com/t2k/backbone.fu/raw/master/img/fu_component.png "Screen shot: Using the FU Component"
 
 #### install coffee-script and bower globally
@@ -24,18 +23,24 @@ $ npm install
 
 #### coffeescript: compile and watch
 ```
-$ coffee -o js/ -cw js/
+$ coffee -o public/js/ -cw public/js/
 $ coffee -o lib/ -cw src/
 ```
 
-##start webApp:
+###starting the webApp:
 ```
 $ node lib/app
 ```
 
+## FU Component usage:
+NOTE: the required FU component is required in the module **define** ```components/fu/app```
 
-## Using the FU Component
-NOTE: the required ```components/fu/app```
+This one line loads the FU component is the sample app
+```
+msgBus.commands.execute "component:fu:show", @layout.uploadRegion, data
+```
+
+see below:
 
 ```
 # upload show controller: require the components/fu/app
