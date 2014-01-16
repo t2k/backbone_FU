@@ -3,7 +3,7 @@ A backbone File Upload component
 
 ![Screenshot][ss]
 
-[ss]:  https://github.com/t2k/backbone_fu/raw/master/img/fu_component.png "Screen shot: Using the FU Component"
+[ss]:  https://github.com/t2k/backbone.fu/raw/master/img/fu_component.png "Screen shot: Using the FU Component"
 
 #### install coffee-script and bower globally
 ```
