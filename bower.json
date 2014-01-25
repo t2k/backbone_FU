@@ -10,7 +10,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.0.3",
+    "jquery": "~2.1.0",
     "bootstrap": "3.0.3",
     "requirejs": "~2.1.9",
     "marionette": "~1.5.1",
@@ -24,8 +24,5 @@
     "r.js": "~2.1.10",
     "globalize": "~0.1.1",
     "moment": "~2.5.0"
-  },
-  "resolutions": {
-    "marionette": "~1.5.1"
   }
 }
