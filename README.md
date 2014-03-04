@@ -1,4 +1,4 @@
-##backbone.FU
+##backbone_FU
 A Backbone File-Upload component.
 
 I've included a client-side webApp so you can enjoy that Backbone **FU** experience 24/7 ;-)
