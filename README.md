@@ -1,7 +1,7 @@
 ##backbone_FU
 A Backbone RequireJS File-Upload component.
 
-I've included a client-side webApp so you can enjoy that Backbone **FU** experience 24/7 ;-)
+I've included a client-side web App so you can enjoy that Backbone **FU** experience 24/7 ;-)
 
 ![Screenshot][ss]
 [ss]:  https://github.com/t2k/backbone.fu/raw/master/img/fu_component.png "Screen shot: Using the FU Component"
