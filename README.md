@@ -1,5 +1,5 @@
 ##backbone_FU
-A Backbone File-Upload component.
+A Backbone RequireJS File-Upload component.
 
 I've included a client-side webApp so you can enjoy that Backbone **FU** experience 24/7 ;-)
 
@@ -66,9 +66,9 @@ define ["msgbus", "backbone", "apps/upload/show/views", "controller/_base", "com
             view = @getOptionsView model
             @listenTo view, "button:clicked", =>
                 # using Syphon to grab hash/options from the view's UI
-                # 
+                #
                 data = Backbone.Syphon.serialize view
-            
+
                 # this is where the FU component is called...
                 # display within this apps 'uploadRegion and pass in options
                 # see components/fu/entities
