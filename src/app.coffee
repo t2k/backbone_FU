@@ -26,7 +26,7 @@ app.post "/upload", (req,res)->
     form = new multiparty.Form
         autoFiles: true
         uploadDir: "./tempUploads"
-        
+
     form.parse req, (err, fields, files) ->
         if err
             res.writeHead 500,
@@ -40,5 +40,5 @@ app.post "/upload", (req,res)->
             files: files
         )
 http.createServer(app).listen process.env.PORT, ->
-    console.log 'Started: FU serverApp'
+    console.log "Started: FU Express server listening on port# #{process.env.PORT}"
 

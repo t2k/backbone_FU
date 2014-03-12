@@ -13,13 +13,13 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
     class FUOptions extends Backbone.Model  #file upload options
         defaults:
             currentUploadedFileId: 0
-            action: "none"
+            action: "NA"
             handler: "/upload"
             queueSizeLimit:1
             fileDataName: "fileData"
-            maxFileSize: 1024*1000
-            maxTotalFileSize: 1024*1000
-            mimeTypes: "plain/text,image/png"
+            maxFileSize: 1024*1000*100 # 100MB
+            maxTotalFileSize: 1024*1000*100 #100MB
+            mimeTypes: ""  # empty string: default behavior ALL FILES ALLOWED
 
     class FileModel extends Backbone.Model
         sync: (method, model, options) ->
@@ -107,7 +107,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
             ,0
 
 
-        # enforceQueueLimits function 
+        # enforceQueueLimits function
         #  verify queue limit,
         #  verify file size
         #  verify max queue size
