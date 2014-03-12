@@ -8,4 +8,5 @@ define ["msgbus", "marionette", "components/fu/show/controller"], (msgBus, Mario
                 options: options
 
     msgBus.commands.setHandler "component:fu:show", (region, options) ->
+        console.log "passed-in:", options
         API.show region, options

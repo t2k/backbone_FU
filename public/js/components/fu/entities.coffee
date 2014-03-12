@@ -47,13 +47,13 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
         initialize: (models, options={})->
             @settings = _.extend(
                 currentUploadedFileId: 0
-                action: "none"
+                action: "NA"
                 handler: "/upload"
                 queueSizeLimit: 1
                 fileDataName: "fileData"
-                maxFileSize: 1024*1000
-                maxTotalSize: 1024*1000
-                mimeTypes: "image/png, image/jpg"
+                maxFileSize: 1024*1000*100
+                maxTotalSize: 1024*1000*100
+                mimeTypes: ""
                 , options)
 
             @mimeTypes = @settings.mimeTypes.split(",")

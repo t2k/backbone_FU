@@ -28,6 +28,7 @@
   "resolutions": {
     "underscore": "~1.6.0",
     "backbone.wreqr": "~1.0.0",
-    "backbone.babysitter": "~0.1.0"
+    "backbone.babysitter": "~0.1.0",
+    "jquery": "~2.1.0"
   }
 }
