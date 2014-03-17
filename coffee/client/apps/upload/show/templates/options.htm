@@ -1,0 +1,44 @@
+<form>
+<div class="form-group row">
+    <label for="queueSizeLimit" class="col-sm-3 control-label">Max Files</label>
+    <div class="col-sm-9">
+      <input type="number" name=queueSizeLimit class="form-control" id="queueSizeLimit" placeholder="Max files in upload queue" value=1>
+    </div>
+</div>
+<!--
+<div class="form-group row">
+    <label for="maxFileSize" class="col-sm-3 control-label">File Size Max</label>
+    <div class="col-sm-9">
+      <input type="number" class="form-control" name=maxFileSize id="maxFileSize" placeholder="file size limit" value=1024000>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label for="maxTotalFileSize" class="col-sm-3 control-label">Total Size Max</label>
+    <div class="col-sm-9">
+      <input type="number" class="form-control" name=maxTotalFileSize id="maxTotalFileSize" placeholder="total file size limit" value=1024000>
+    </div>
+</div>
+-->
+
+<div class="form-group row">
+    <label for="mimetypes" class="col-sm-3 control-label">mimeType</label>
+    <div class="col-sm-9">
+     	<label class="radio-inline">
+          <input type="radio" name="mimeTypes" id="radio1" value="image/png" checked>png
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="mimeTypes" id="radio2" value="text/plain">csv
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="mimeTypes" id="radio3" value=""><i>any</i>
+        </label>
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-sm-offset-3 col-sm-9">
+        <button type="button" class="btn btn-primary">Try it</button>
+    </div>
+</div>
+</form>
