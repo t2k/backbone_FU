@@ -126,7 +126,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
                 msgBus.events.trigger "fu:errorAddingFile", errObj
                 return false
 
-            unless @mimeTypes.length is 0 #verify mime types
+            unless @mimeTypes.length is 0 or @mimeTypes[0].length is 0 #verify mime types
                 mimeTypeFound = false
                 fileMimeType = file.type
                 i = 0

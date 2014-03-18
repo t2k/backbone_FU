@@ -172,7 +172,7 @@
           msgBus.events.trigger("fu:errorAddingFile", errObj);
           return false;
         }
-        if (this.mimeTypes.length !== 0) {
+        if (!(this.mimeTypes.length === 0 || this.mimeTypes[0].length === 0)) {
           mimeTypeFound = false;
           fileMimeType = file.type;
           i = 0;
