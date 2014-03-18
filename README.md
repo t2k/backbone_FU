@@ -6,9 +6,9 @@ I've included a client-side web App so you can enjoy that Backbone **FU** experi
 ![Screenshot][ss]
 [ss]:  https://github.com/t2k/backbone.fu/raw/master/img/fu_component.png "Screen shot: Using the FU Component"
 
-#### install coffee-script and bower globally
+#### install coffee-script, grunt-cli and  bower globally
 ```
-npm install -g coffee-script bower
+npm install -g coffee-script bower grunt-cli
 ```
 
 #### install client side dependencies via bower.json
@@ -23,11 +23,10 @@ $ npm install
 
 #### coffeescript: compile and watch
 ```
-$ coffee -o public/js/ -cw public/js/
-$ coffee -o lib/ -cw src/
+$ grunt
 ```
 
-###starting the webApp:
+###starting the Server/webApp:
 ```
 $ node lib/app
 ```
