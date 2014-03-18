@@ -1,8 +1,5 @@
 module.exports =
-  #db: process.env.MONGODB or "mongodb://localhost:27017/test"
-  #db: process.env.MONGODB or "mongodb://localhost/test"
-  db: 'mongodb://t2k:t2kmongo1@widmore.mongohq.com:10000/t2kDB' #azure web service
-  #db: 'mongodb://t2k:t2kmongo1@linus.mongohq.com:10062/t2k'  #mongoHQ cloud service
+  db: process.env.MONGODB or "mongodb://localhost/test"
   sessionSecret: process.env.SESSION_SECRET or "Your Session Secret goes here"
   localAuth: true
   mailgun:
