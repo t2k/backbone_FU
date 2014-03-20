@@ -16,6 +16,8 @@
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-coffee": "~0.10.1",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-requirejs": "~0.4.3"
+    "grunt-contrib-requirejs": "~0.4.3",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-autoprefixer": "~0.7.2"
   }
 }

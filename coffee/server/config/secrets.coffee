@@ -1,5 +1,5 @@
 module.exports =
-  db: process.env.MONGODB or "mongodb://localhost/test"
+  db: process.env.MONGODB or "mongodb://localhost/FU"
   sessionSecret: process.env.SESSION_SECRET or "Your Session Secret goes here"
   localAuth: true
   mailgun:

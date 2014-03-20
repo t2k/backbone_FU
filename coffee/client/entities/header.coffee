@@ -9,7 +9,7 @@ define ["backbone", "msgbus"], (Backbone, msgBus ) ->
     API =
         getHeaders:->
             new Backbone.Collection [
-                (name: "Upload", url: "#upload", title: "Upload manager", cssClass: "glyphicon glyphicon-hdd")
+                (name: "Uploader", url: "#upload", title: "Upload manager", cssClass: "glyphicon glyphicon-hdd")
                 (name: "About", url: "#about", title: "What up?", cssClass: "glyphicon glyphicon-dashboard")
                 ]
 
