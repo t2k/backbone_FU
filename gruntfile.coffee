@@ -58,4 +58,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'  
   grunt.loadNpmTasks 'grunt-contrib-watch'
 
-  grunt.registerTask "default", ['copy', 'coffee', 'watch']
+  grunt.registerTask "default", ['clean', 'copy', 'autoprefixer', 'coffee', 'watch']
