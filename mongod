@@ -1,2 +1,2 @@
 #mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@" #cloud9 parames
-mongod --dbpath=data --nojournal 
+mongod --dbpath=c:/temp/data/db --nojournal 
