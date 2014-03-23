@@ -22,12 +22,16 @@ module.exports = (grunt) ->
         
     clean:
       build:
-        src: ['build/js']
+        src: ['build/js,build/css,build/fonts']
           
     copy:
-      build:
+      mustache_templates:
         files: [
           (expand: true, cwd: 'coffee/client/', src: ['**/*.htm'], dest: 'build/js/')
+        ]
+      bootstrap_fonts:
+        files:[
+          (expand:true,cwd:'build/bower_components/bootstrap/dist/',src: ['fonts/*'],dest:'build/')
         ]
         
     autoprefixer:
@@ -36,6 +40,11 @@ module.exports = (grunt) ->
         cwd:'build/css'
         src:['**/*.css']
         dest: 'build/css'
+
+    less:
+      files:
+        "build/css/bootstrap.css": "build/bower_components/bootstrap/less/bootstrap.less"
+        "build/css/main.css":"coffee/less/main.less"
 
     watch:
       coffee_server:
@@ -51,7 +60,7 @@ module.exports = (grunt) ->
         tasks: ['copy']
 
 
-
+  grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-autoprefixer'
