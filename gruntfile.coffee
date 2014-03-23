@@ -21,9 +21,11 @@ module.exports = (grunt) ->
         ext: '.js'
         
     clean:
-      build:
-        src: ['build/js,build/css,build/fonts']
-          
+      js:
+        src: ['build/js']
+      css:
+        src: ['build/css,build/fonts']
+
     copy:
       mustache_templates:
         files: [
@@ -42,9 +44,12 @@ module.exports = (grunt) ->
         dest: 'build/css'
 
     less:
-      files:
-        "build/css/bootstrap.css": "build/bower_components/bootstrap/less/bootstrap.less"
-        "build/css/main.css":"coffee/less/main.less"
+      bootstrap:
+        files:
+          "build/css/bootstrap.css": "build/bower_components/bootstrap/less/bootstrap.less"
+      application:
+        files:
+          "build/css/main.css":"coffee/client/less/main.less"
 
     watch:
       coffee_server:
@@ -67,4 +72,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'  
   grunt.loadNpmTasks 'grunt-contrib-watch'
 
-  grunt.registerTask "default", ['clean', 'copy', 'autoprefixer', 'coffee', 'watch']
+  grunt.registerTask "default", ['clean', 'copy', 'less', 'autoprefixer', 'coffee', 'watch']
