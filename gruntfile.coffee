@@ -21,12 +21,18 @@ module.exports = (grunt) ->
         ext: '.js'
         
     clean:
+      bower_components:
+        src: ['build/bower_components']
       js:
         src: ['build/js']
       css:
         src: ['build/css,build/fonts']
 
     copy:
+      bower_components:
+        files: [
+          (expand: true, cwd: 'bower_components/', src: ['**/*'], dest: 'build/')
+        ]      
       mustache_templates:
         files: [
           (expand: true, cwd: 'coffee/client/', src: ['**/*.htm'], dest: 'build/js/')
